@@ -17,7 +17,9 @@ class PhonesPage{
       })
       
         this.viewer=new PhoneViewer({
-          element:document.querySelector('[data-component="phone-viewer"]') 
+          element:document.querySelector('[data-component="phone-viewer"]') ,
+          phonedetails:PhoneService.getAllDetails(),
+         
         })
 
        
