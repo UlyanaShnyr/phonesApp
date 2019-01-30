@@ -1,19 +1,27 @@
 'use strict'
 
 class PhoneCatalog{
-   constructor ({element, phones=[]}){
+   constructor ({element, phones=[], onSelectedPhone=()=>{}}){
        this._element=element;
        this._phones=phones;
+       this._onSelectedPhone=onSelectedPhone;
        this._render();
       
-    };
-  
+      this._element.addEventListener('click',(event)=>{
+      let phoneElement=event.target.closest('[data-element="phone"]');
+      if(!phoneElement){return;}
+      this._onSelectedPhone(phoneElement.dataset.phoneId)
+      })
+    }
+  hide(){
+    this._element.hidden=true;
+  }
    _render(){
 this._element.innerHTML=`
   <ul class="phones">
       ${ this._phones.map(phones=>`   
 
-           <li class="thumbnail">
+           <li class="thumbnail" data-element="phone" data-phone-id="${phones.id}">
              <a href="#!/phones/${phones.id}" class="thumb">
                <img alt="${phones.name}" src="${phones.imageUrl}">
              </a>

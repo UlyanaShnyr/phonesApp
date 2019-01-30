@@ -2,10 +2,13 @@
 
 class PhoneViewer{
    constructor ({element}){
-       this._element=element;
-       this._render();
-      
+       this._element=element;  
     };
+    show(PhoneDetails){
+        this._PhoneDetails=PhoneDetails;
+        this._element.hidden=false;
+        this._render();
+       }
   
    _render(){
 this._element.innerHTML=`

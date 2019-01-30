@@ -7,12 +7,23 @@ class PhonesPage{
 
        this.catalog=new PhoneCatalog({
         element:document.querySelector('[data-component="phone-catalog"]'),
-        phones:PhoneService.getAllPhone()
-      })
+        phones:PhoneService.getAllPhone(),
 
+        onSelectedPhone:(phoneId)=>{
+          const detailsPhone=PhoneService.getById(phoneId);
+          this.catalog.hide();
+          this.viewer.show(PhoneDetails);
+        }
+      })
+      
         this.viewer=new PhoneViewer({
-          element:document.querySelector('[data-component="phone-viewer"]') })
-   }
+          element:document.querySelector('[data-component="phone-viewer"]') 
+        })
+
+       
+         
+    }
+
    _render(){
        this._element.innerHTML=`
        <div class="row">
