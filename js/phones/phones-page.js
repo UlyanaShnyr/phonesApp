@@ -4,8 +4,11 @@ class PhonesPage{
    constructor ({element}){
        this._element=element;
        this._render();
+
        this.catalog=new PhoneCatalog({
-        element:document.querySelector('[data-component="phone-catalog"]') })
+        element:document.querySelector('[data-component="phone-catalog"]'),
+        phones:PhoneService.getAllPhone()
+      })
 
         this.viewer=new PhoneViewer({
           element:document.querySelector('[data-component="phone-viewer"]') })
