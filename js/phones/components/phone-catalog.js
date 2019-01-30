@@ -14,8 +14,8 @@ this._element.innerHTML=`
       ${ this._phones.map(phones=>`   
 
            <li class="thumbnail">
-             <a href="#!/phones/motorola-xoom-with-wi-fi" class="thumb">
-               <img alt="Motorola XOOM™ with Wi-Fi" src="img/phones/motorola-xoom-with-wi-fi.0.jpg">
+             <a href="#!/phones/${phones.id}" class="thumb">
+               <img alt="${phones.name}" src="${phones.imageUrl}">
              </a>
  
              <div class="phones__btn-buy-wrapper">
@@ -24,10 +24,8 @@ this._element.innerHTML=`
                </a>
              </div>
  
-             <a href="#!/phones/motorola-xoom-with-wi-fi">Motorola XOOM™ with Wi-Fi</a>
-             <p>The Next, Next Generation
- 
-               Experience the future with Motorola XOOM with Wi-Fi, the world's first tablet powered by Android 3.0 (Honeycomb).</p>
+             <a href="#!/phones/${phones.name}">${phones.name}</a>
+             <p>${phones.snippet}</p>
            </li>
            `).join('')}
          </ul>`;
