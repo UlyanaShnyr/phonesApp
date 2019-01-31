@@ -1,14 +1,15 @@
 'use strict'
 
-class PhoneViewer{
+class PhoneViewer extends Component{
    constructor ({element, phonedetails={}}){
-       this._element=element; 
+     super({element});
+      
        this._phonedetails=phonedetails
     };
     
     show(PhoneDetails){
         this._PhoneDetails=PhoneDetails;
-        this._element.hidden=false;
+       super.show();
         this._render();
        }
   

@@ -1,13 +1,15 @@
 'use strict'
 
-class PhonesPage{
+class PhonesPage {
    constructor ({element}){
+       
        this._element=element;
        this._render();
 
        this.catalog=new PhoneCatalog({
         element:document.querySelector('[data-component="phone-catalog"]'),
         phones:PhoneService.getAllPhone(),
+
 
         onSelectedPhone:(phoneId)=>{
           const detailsPhone=PhoneService.getById(phoneId);

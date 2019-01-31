@@ -1,28 +1,29 @@
 'use strict'
 
-class PhoneCatalog{
+class PhoneCatalog extends Component{
    constructor ({element, phones=[], onSelectedPhone=()=>{}}){
-       this._element=element;
+     super({element});
+      
        this._phones=phones;
        this._onSelectedPhone=onSelectedPhone;
        this._render();
       
       this._element.addEventListener('click',(event)=>{
+      let detailsLink =event.target.closest('[data-element="details-link"]');
+    
+      if(!detailsLink){return;}
       let phoneElement=event.target.closest('[data-element="phone"]');
-      if(!phoneElement){return;}
       this._onSelectedPhone(phoneElement.dataset.phoneId)
       })
     }
-  hide(){
-    this._element.hidden=true;
-  }
+  
    _render(){
 this._element.innerHTML=`
   <ul class="phones">
       ${ this._phones.map(phones=>`   
 
            <li class="thumbnail" data-element="phone" data-phone-id="${phones.id}">
-             <a href="#!/phones/${phones.id}" class="thumb">
+             <a href="#!/phones/${phones.id}" data-element="details-link" class="thumb">
                <img alt="${phones.name}" src="${phones.imageUrl}">
              </a>
  
@@ -32,7 +33,7 @@ this._element.innerHTML=`
                </a>
              </div>
  
-             <a href="#!/phones/${phones.name}">${phones.name}</a>
+             <a href="#!/phones/${phones.name}" data-element="details-link" >${phones.name}</a>
              <p>${phones.snippet}</p>
            </li>
            `).join('')}
