@@ -8,15 +8,13 @@ class PhoneCatalog extends Component{
        this._onSelectedPhone=onSelectedPhone;
        this._render();
       
-      this._element.addEventListener('click',(event)=>{
-      let detailsLink =event.target.closest('[data-element="details-link"]');
-    
-      if(!detailsLink){return;}
-      let phoneElement=event.target.closest('[data-element="phone"]');
-      this._onSelectedPhone(phoneElement.dataset.phoneId)
-      })
+       this.on('click','[data-element="details-link"]',(event)=>{
+         let phoneElement=event.target.closest('[data-element="phone"]');
+         this._onSelectedPhone(phoneElement.dataset.phoneId);
+       });
+          
     }
-  
+   
    _render(){
 this._element.innerHTML=`
   <ul class="phones">
