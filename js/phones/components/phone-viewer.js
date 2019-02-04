@@ -3,14 +3,16 @@
 class PhoneViewer extends Component{
    constructor ({element, phonedetails={}, onBack}){
      super({element});          
-       this._phonedetails=phonedetails;
-     
+       this._phonedetails=phonedetails;     
 
-       this._element.addEventListener('click',(event)=>{
-        
-        const btnBack= event.target.closest('[data-element="back-button"]');
-        if(!btnBack){return;}
+       this.on('click','[data-element="back-button"]',(event)=>{ 
         onBack();
+       })
+       this.on('click', '[data-element="smallImg"]',(event)=>{
+        const smallImg=event.target;
+        const largeImg=element.querySelector('[data-element="largeImg"]');
+         largeImg.src=smallImg.src;
+ 
        })
     };
     
@@ -26,7 +28,7 @@ class PhoneViewer extends Component{
 this._element.innerHTML=`
 
 <div data-phone-id="${phonedetails.id}">
-<img class="phone" src="${phonedetails.images[0]}">
+<img data-element="largeImg" class="phone" src="${phonedetails.images[0]}">
 
 <button data-element="back-button" >Back</button>
 <button>Add to basket</button>
@@ -37,20 +39,14 @@ this._element.innerHTML=`
 <p>"${phonedetails.description}"</p>
 
 <ul class="phone-thumbs">
-  <li>
-    <img src="${phonedetails.images[0]}">
+${phonedetails.images.map(imageUrl=>`
+<li >
+    <img data-element="smallImg" src="${imageUrl}">
   </li>
-  <li>
-    <img src="${phonedetails.images[1]}">
-  </li>
-  <li>
-    <img src="${phonedetails.images[2]}">
-  </li>
+`).join(' ')}
   
-
+ 
 </ul>
 </div>
-
-
 `
    }}
