@@ -15,6 +15,11 @@ class PhonesPage {
           const detailsPhone=PhoneService.getById(phoneId);
           this.catalog.hide();
           this.viewer.show(PhoneDetails);
+        },
+        
+        add:(phoneId)=>{
+          this.shopingCart.add(phoneId);
+       
         }
       })
       
@@ -25,42 +30,42 @@ class PhonesPage {
           onBack:()=>{
           this.catalog.show();
           this.viewer.hide();
+          },
+          add:(phoneId)=>{
+            this.shopingCart.add(phoneId);
+         
           }
          
+        })
+
+        this.shopingCart=new ShopingCart({
+          element:document.querySelector('[data-component="shoping-cart"]'),
+          
+          
+          
+        });
+     
+        
+
+       this.filter=new Filter({
+        element:document.querySelector('[data-component="filter"]'),
         })
 
        
          
     }
-
-   _render(){
+_render(){
        this._element.innerHTML=`
        <div class="row">
 
        <!--Sidebar-->
        <div class="col-md-2">
          <section>
-           <p>
-             Search:
-             <input>
-           </p>
- 
-           <p>
-             Sort by:
-             <select>
-               <option value="name">Alphabetical</option>
-               <option value="age">Newest</option>
-             </select>
-           </p>
+         <div data-component="filter"></div>
          </section>
  
          <section>
-           <p>Shopping Cart</p>
-           <ul>
-             <li>Phone 1</li>
-             <li>Phone 2</li>
-             <li>Phone 3</li>
-           </ul>
+          <div data-component="shoping-cart"></div>
          </section>
        </div>
  

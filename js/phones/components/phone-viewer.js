@@ -1,12 +1,15 @@
 'use strict'
 
 class PhoneViewer extends Component{
-   constructor ({element, phonedetails={}, onBack}){
+   constructor ({element, phonedetails={}, onBack, add}){
      super({element});          
        this._phonedetails=phonedetails;     
 
        this.on('click','[data-element="back-button"]',(event)=>{ 
         onBack();
+       });
+       this.on('click','[data-element="add-button"]',(event)=>{ 
+        add(phonedetails.id);
        })
        this.on('click', '[data-element="smallImg"]',(event)=>{
         const smallImg=event.target;
@@ -30,8 +33,13 @@ this._element.innerHTML=`
 <div data-phone-id="${phonedetails.id}">
 <img data-element="largeImg" class="phone" src="${phonedetails.images[0]}">
 
-<button data-element="back-button" >Back</button>
-<button>Add to basket</button>
+<button data-element="back-button" >
+  Back
+</button>
+
+<button data-element="add-button">
+  Add to basket
+</button>
 
 
 <h1>"${phonedetails.name}"</h1>
@@ -49,4 +57,5 @@ ${phonedetails.images.map(imageUrl=>`
 </ul>
 </div>
 `
-   }}
+   }
+  }

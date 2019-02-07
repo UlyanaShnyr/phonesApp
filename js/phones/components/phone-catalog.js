@@ -1,7 +1,7 @@
 'use strict'
 
 class PhoneCatalog extends Component{
-   constructor ({element, phones=[], onSelectedPhone=()=>{}}){
+   constructor ({element, phones=[], onSelectedPhone=()=>{}, add}){
      super({element});
       
        this._phones=phones;
@@ -12,6 +12,11 @@ class PhoneCatalog extends Component{
          let phoneElement=event.target.closest('[data-element="phone"]');
          this._onSelectedPhone(phoneElement.dataset.phoneId);
        });
+
+       this.on('click','[data-element="add-button"]',(event)=>{ 
+        let phoneElement=event.target.closest('[data-element="phone"]');
+         add(phoneElement.dataset.phoneId);
+       })
           
     }
    
@@ -26,9 +31,10 @@ this._element.innerHTML=`
              </a>
  
              <div class="phones__btn-buy-wrapper">
-               <a class="btn btn-success">
-                 Add
-               </a>
+             <button data-element="add-button">
+             Add
+             </button>
+            
              </div>
  
              <a href="#!/phones/${phones.name}" data-element="details-link" >${phones.name}</a>
