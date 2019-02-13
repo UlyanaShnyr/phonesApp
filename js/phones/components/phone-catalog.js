@@ -19,7 +19,11 @@ class PhoneCatalog extends Component{
        })
           
     }
-   
+   show(phones){
+     this._phones=phones;
+     super.show();
+     this._render();
+   }
    _render(){
 this._element.innerHTML=`
   <ul class="phones">

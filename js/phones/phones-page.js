@@ -4,6 +4,7 @@ class PhonesPage {
    constructor ({element}){
        
        this._element=element;
+
        this._render();
 
        this.catalog=new PhoneCatalog({
@@ -14,13 +15,14 @@ class PhonesPage {
         onSelectedPhone:(phoneId)=>{
           const detailsPhone=PhoneService.getById(phoneId);
           this.catalog.hide();
-          this.viewer.show(PhoneDetails);
+          this.viewer.show(detailsPhone);
         },
         
         add:(phoneId)=>{
           this.shopingCart.add(phoneId);
        
         }
+        
       })
       
         this.viewer=new PhoneViewer({

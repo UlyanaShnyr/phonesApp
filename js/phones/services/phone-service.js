@@ -217,15 +217,19 @@ const PhoneDetails=
     }
 }
 
+
+
    
     
 
 const PhoneService={
-   getAllPhone(){
+   getAllPhone({ query = '', orderField } = {}){
        return AsIsFromServer;
    },
-   getById(){
-       return PhoneDetails;
+   getById(phoneId){     
+     if(PhoneDetails.id===phoneId){       
+        return phoneId;
+     }
    },
    getAllDetails(){
        return PhoneDetails;
