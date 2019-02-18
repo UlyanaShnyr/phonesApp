@@ -4,17 +4,24 @@ class PhonesPage {
    constructor ({element}){
        
        this._element=element;
-
        this._render();
 
-       this.catalog=new PhoneCatalog({
+       this._initFilter();
+       this._initCatalog();
+       this._initViewer();
+       this. _initShopingCart();
+       
+
+    }
+    _initCatalog(){
+      this._catalog=new PhoneCatalog({
         element:document.querySelector('[data-component="phone-catalog"]'),
-        phones:PhoneService.getAllPhone(),
+     
 
 
         onSelectedPhone:(phoneId)=>{
           const detailsPhone=PhoneService.getById(phoneId);
-          this.catalog.hide();
+          this._catalog.hide();
           this.viewer.show(detailsPhone);
         },
         
@@ -23,40 +30,61 @@ class PhonesPage {
        
         }
         
-      })
+      });
+      let phones=PhoneService.getAllPhone();
+      this._catalog.show(phones);
       
-        this.viewer=new PhoneViewer({
-          element:document.querySelector('[data-component="phone-viewer"]') ,
-          phonedetails:PhoneService.getAllDetails(),
+    }
+    _initViewer(){
+      this.viewer=new PhoneViewer({
+        element:document.querySelector('[data-component="phone-viewer"]') ,
+        phonedetails:PhoneService.getAllDetails(),
 
-          onBack:()=>{
-          this.catalog.show();
-          this.viewer.hide();
-          },
-          add:(phoneId)=>{
-            this.shopingCart.add(phoneId);
-         
-          }
-         
-        })
-
-        this.shopingCart=new ShopingCart({
-          element:document.querySelector('[data-component="shoping-cart"]'),
-          
-          
-          
-        });
-     
-        
-
-       this.filter=new Filter({
-        element:document.querySelector('[data-component="filter"]'),
-        })
-
+        onBack:()=>{
+        this._catalog.show();
+        this.viewer.hide();
+        },
+        add:(phoneId)=>{
+          this.shopingCart.add(phoneId);
        
+        }
+       
+      })
+
+    }
+
+    _initShopingCart(){
+
+      this.shopingCart=new ShopingCart({
+        element:document.querySelector('[data-component="shoping-cart"]'),
+        
+        
+        
+      });
+    }
+    _initFilter(){
+      this._filter=new Filter({
+        element:document.querySelector('[data-component="filter"]'),
+        });
+        this._filter.on('order-changed','[data-component="filter"]',()=>{
+         
+          let currentFilter=this._filter.getCurentData();    
+          let phones=PhoneService.getAllPhone({currentFilter});
+               this._catalog.show(phones);
+            
+              
+         });
+         this._filter.on('query-changed','[data-component="filter"]',()=>{
+          let currentFilter=this._filter.getCurentData();
+          let phones=PhoneService.getAllPhone({currentFilter});
+          this._catalog.show(phones);
+        
+        })
          
     }
-_render(){
+
+    
+    _render(){
        this._element.innerHTML=`
        <div class="row">
 

@@ -223,8 +223,12 @@ const PhoneDetails=
     
 
 const PhoneService={
-   getAllPhone({ query = '', orderField } = {}){
-       return AsIsFromServer;
+   getAllPhone({ query = '', sortBy = '' } = {}){
+    console.log(`Query: ${query}, sortBy ${sortBy} `);
+
+   const filteredPhones = this._filter(AsIsFromServer, query);
+    const sortedPhones = this._sortBy(filteredPhones, sortBy);    
+       return sortedPhones;
    },
    getById(phoneId){     
      if(PhoneDetails.id===phoneId){       
@@ -233,5 +237,12 @@ const PhoneService={
    },
    getAllDetails(){
        return PhoneDetails;
-   }
+   },
+   _filter(phones, query) {
+    return phones.filter(() => true);
+  },
+
+  _sortBy(phones, sortBy) {
+    return phones;
+  }
 }

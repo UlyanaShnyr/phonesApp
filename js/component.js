@@ -3,6 +3,7 @@
 class Component{
     constructor({element}){
         this._element=element;
+        this._callbackMap={};
     }
     hide(){
         return this._element.hidden=true;
@@ -18,4 +19,17 @@ class Component{
           callback(event);
           })
          }
+
+         emit(eventName, data) {
+            const eventCallbacks = this._callbackMap[eventName];
+        
+            if (!eventCallbacks) {
+              return;
+            }
+        
+            eventCallbacks.forEach(callback => {
+              callback(data);
+            });
+          }     
+         
 }

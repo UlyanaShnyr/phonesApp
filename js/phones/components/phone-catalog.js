@@ -1,10 +1,10 @@
 'use strict'
 
 class PhoneCatalog extends Component{
-   constructor ({element, phones=[], onSelectedPhone=()=>{}, add}){
+   constructor ({element,  onSelectedPhone=()=>{}, add}){
      super({element});
       
-       this._phones=phones;
+       this._phones=[];
        this._onSelectedPhone=onSelectedPhone;
        this._render();
       
@@ -19,6 +19,7 @@ class PhoneCatalog extends Component{
        })
           
     }
+    
    show(phones){
      this._phones=phones;
      super.show();
