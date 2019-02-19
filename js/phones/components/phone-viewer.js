@@ -1,61 +1,66 @@
-'use strict'
-
-class PhoneViewer extends Component{
-   constructor ({element, phonedetails={}, onBack, add}){
-     super({element});          
-       this._phonedetails=phonedetails;     
-
-       this.on('click','[data-element="back-button"]',(event)=>{ 
-        onBack();
-       });
-       this.on('click','[data-element="add-button"]',(event)=>{ 
-        add(phonedetails.id);
-       })
-       this.on('click', '[data-element="smallImg"]',(event)=>{
-        const smallImg=event.target;
-        const largeImg=element.querySelector('[data-element="largeImg"]');
-         largeImg.src=smallImg.src;
- 
-       })
-    };
-    
-    show(PhoneDetails){
-        this._PhoneDetails=PhoneDetails;
-       super.show();
-        this._render();
-       }
-       
-  
-   _render(){
-    const phonedetails=this._phonedetails;
-this._element.innerHTML=`
-
-<div data-phone-id="${phonedetails.id}">
-<img data-element="largeImg" class="phone" src="${phonedetails.images[0]}">
-
-<button data-element="back-button" >
-  Back
-</button>
-
-<button data-element="add-button">
-  Add to basket
-</button>
 
 
-<h1>"${phonedetails.name}"</h1>
+ class PhoneViewer extends Component {
 
-<p>"${phonedetails.description}"</p>
+  constructor({ element }) {
+    super({ element });
 
-<ul class="phone-thumbs">
-${phonedetails.images.map(imageUrl=>`
-<li >
-    <img data-element="smallImg" src="${imageUrl}">
-  </li>
-`).join(' ')}
-  
- 
-</ul>
-</div>
-`
-   }
+    this.on('click', '[data-element="back-button"]', () => {
+      this.emit('back');
+    });
+
+    this.on('click', '[data-element="change-button"]', () => {
+      this.emit('add', this._phoneDetails.id);
+    });
+
+    this.on('click', '[data-element="small-image"]', (event) => {
+      const smallImage = event.target;
+      const largeImage = this._element.querySelector('[data-element="large-image"]');
+
+      largeImage.src = smallImage.src;
+    });
   }
+
+  show(phoneDetails) {
+    this._phoneDetails = phoneDetails;
+
+    super.show();
+
+    this._render();
+  }
+
+  _render() {
+    const phone = this._phoneDetails;
+
+    this._element.innerHTML = `
+      <img
+        data-element="large-image"
+        class="phone"
+        src="${ phone.images[0] }"
+      >
+
+      <button data-element="back-button">
+        Back
+      </button>
+      
+      <button data-element="change-button">
+        Add to basket
+      </button>
+  
+  
+      <h1>${ phone.name }</h1>
+      <p>${ phone.description }</p>
+  
+      <ul class="phone-thumbs">
+        ${ phone.images.map(imageUrl => `
+          <li>
+            <img
+              data-element="small-image"
+              src="${ imageUrl }"
+            >                
+          </li>
+        `).join('') }
+      </ul>
+    `;
+  }
+}
